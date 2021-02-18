@@ -12,9 +12,11 @@ public class SimpleRepository implements MainRepository {
     private final String SQL_FIND = "select count from \"uniqWords\" where word =?";
     //language=SQL
     private final String SQL_UPDATE = "UPDATE \"uniqWords\" set count =count + ? where word = ? ";
-    private final String URL = "jdbc:postgresql://localhost:5432/JavaLabSecondCourseDb";
-    private final String PASSWORD = "123456789";
-    private final String USERNAME = "postgres";
+    //language=SQL
+    private final String SQL_GET_ALL = "select * from  \"uniqWords\"";
+    private final String URL = "//enter your db url here";
+    private final String PASSWORD = "//password";
+    private final String USERNAME = "//username";
     private PreparedStatement preparedStatement;
     private ResultSet resultSet;
 
@@ -55,5 +57,18 @@ public class SimpleRepository implements MainRepository {
         } catch (SQLException throwables) {
             ExceptionLogger.getLogger().logException(throwables);
         }
+    }
+
+    @Override
+    public ResultSet getAllRecords() {
+        try (Connection conn = DriverManager.getConnection(URL, USERNAME, PASSWORD)) {
+                preparedStatement = conn.prepareStatement(SQL_GET_ALL);
+                return preparedStatement.executeQuery();
+
+                } catch (SQLException throwables) {
+                    ExceptionLogger.getLogger().logException(throwables);
+                    throw new IllegalStateException(throwables);
+                }
+
     }
 }

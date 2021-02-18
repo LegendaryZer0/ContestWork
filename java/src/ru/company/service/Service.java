@@ -7,7 +7,7 @@ import ru.company.util.Extractor;
 
 import java.io.*;
 import java.net.URL;
-import java.util.Map;
+import java.sql.ResultSet;
 import java.util.UUID;
 
 public class Service implements IService {
@@ -33,7 +33,7 @@ public class Service implements IService {
     }
 
     @Override
-    public Map<String, Long> execute(String url) {
+    public void execute(String url) {
         try {
             saveUrl(url);
 
@@ -51,7 +51,12 @@ public class Service implements IService {
 
             }
         }
-        return null;
+
+    }
+
+    @Override
+    public ResultSet getResult() {
+        return simpleRepository.getAllRecords();
     }
 
 

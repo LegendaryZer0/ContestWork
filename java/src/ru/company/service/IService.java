@@ -1,7 +1,9 @@
 package ru.company.service;
 
+import java.sql.ResultSet;
 import java.util.Map;
 
 public interface IService {
-    public Map<String, Long> execute(String url);
+    public void execute(String url);
+    public ResultSet  getResult();
 }
